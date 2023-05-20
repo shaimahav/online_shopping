@@ -1,0 +1,113 @@
+<html>
+	<script src="/static/jquery-1.8.3.min.js"></script>
+	<script>
+		$(document).ready(function(){
+					$("#quantity").change(function(){
+									var quantity=parseInt($("#quantity").val())
+									var price=parseInt($("#price").val())
+									var totalprice=quantity*price
+									$("#totalprice").val(totalprice);
+								      })
+						
+					})
+	</script>
+	<script type="text/javascript">
+		function validation()
+		{
+			var num=/^[0-9]+$/;
+			var shippingaddress=document.getElementById("shippingaddress");
+			var contactno=document.getElementById("contactno");
+			var quantity=document.getElementById("quantity");
+			if(shippingaddress.value.length==0)
+			{
+				alert("Enter shipping address");
+				shippingaddress.focus();
+				return false;
+			}
+			else if(contactno.value.length==0)
+			{
+				alert("Enter a contactno");
+				contactno.focus();
+				return false;
+			}
+			else if(!contactno.value.match(num))
+			{
+				alert("Enter a valid contact no");
+				contactno.focus();
+				return false;
+			}
+			else if(quantity.value.length==0)
+			{
+				alert("Enter the quantity");
+				quantity.focus();
+				return false;
+			}
+			else if(!quantity.value.match(num))
+			{
+				alert("Enter a valid quantity")
+				quantity.focus();
+				return false;
+			}
+			else
+			{
+				return true;			
+			}
+			
+		}		
+	</script>
+	<body>
+		<form method="post" action="{% url 'addtoCartAction' %}">
+		{% csrf_token %}
+			<table>
+				{% for v in data %}
+				<tr>
+					<input type="hidden" name="data1" value="{{data1}}">
+				</tr>
+				<tr>
+					<td>Productid</td>
+					<td><input type="text" name="productid" value="{{v.id}}" readonly=""true></td>
+				</tr>
+				<tr>
+					<td>Product Name</td>
+					<td><input type="text" name="productname" value="{{v.name}}" readonly="true"></td>
+				</tr>
+				<tr>
+					<td>Price</td>
+					<td><input type="text" name="price" value="{{v.price}}" id ="price"  readonly="true"></td>
+				</tr>
+				<tr>
+					<td>Picture</td>
+					<td><img src="{{v.picture.url}}" height="100px" width="100px" alt="no pic"></td>
+				</tr>
+				<tr>
+					<td>Shipping Address</td>
+					<td><textarea name="shippingaddress" rows="20" cols="20" id="shippingaddress"></textarea></td>
+				</tr>
+				<tr>
+					<td>Contact No</td>
+					<td><input type="text" name="contactno" id="contactno"></td>
+				</tr>
+				<tr>
+					<td>Quantity</td>
+					<td><input type="text" name="quantity" id="quantity"></td>
+				</tr>
+				<tr>
+					<td>Total Price</td>
+					<td><input type="text" name="totalprice" id="totalprice"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="addtocart" onclick="return validation()"></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</form>
+	</body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+</html>

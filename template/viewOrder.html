@@ -1,0 +1,36 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<th>Product Name</th>
+				<th>Seller Name</th>
+				<th>Picture</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Toatal Price</th>
+				<th>Shipping Address</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Status</th>
+			</tr>
+			{% for v in data %}
+			<tr>
+				<td>{{v.productid.name}}</td>
+				<td>{{v.buyerid.name}}</td>
+				<td><img src="{{v.productid.picture.url}}" height="100px" width="100px"></td>
+				<td>{{v.price}}</td>
+				<td>{{v.quantity}}</td>
+				<td>{{v.totalprice}}</td>
+				<td>{{v.shippingaddress}}</td>
+				<td>{{v.date}}</td>
+				<td>{{v.time}}</td>
+				<td>{{v.status}}</td>
+				<td><a href="{% url 'cancel' v.id %}">Cancel</a></td>
+				{% if v.status == "accepted" %}
+				<td><a href="{% url 'viewTrackDetails' v.id %}">View tracking details</a></td>
+				{% endif %}
+			</tr>/
+			{% endfor %}
+		</table>
+	</body>
+</html>

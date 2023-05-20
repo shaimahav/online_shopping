@@ -1,0 +1,68 @@
+<html>
+<script type="text/javascript">
+		function validation()
+		{
+			var alpha=/^[a-zA-Z]+$/;
+			var num=/^[0-9]+$/;
+			
+			
+			
+			var username=document.getElementById("username");
+			var password=document.getElementById("password");
+			
+		
+		
+			
+			if(username.value.length==0)
+			{
+				alert("Please Enter your username ");
+				return false;
+			}
+			
+			else if(password.value.length==0)
+			{
+				alert("Plese enter your password");
+				return false;
+			}
+			
+			
+			else
+			{
+				return true;
+			}
+		}	
+			
+		
+	</script>
+
+	<body>
+		<form method="post" action="{% url 'loginAction' %}">
+		{% csrf_token %}
+			<table>
+				<tr>
+					<td>User name</td>
+					<td><input type="text" name="username" id="username"></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type="password" name="password" id="password"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Login" onclick="return validation()"></td>
+				</tr>
+			</table>
+				<li>
+					<a href="{% url 'forgotPassword' %}">Forgot Password</a>
+				</li>
+		</form>
+	</body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+
+</html>

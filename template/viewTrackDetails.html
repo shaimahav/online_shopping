@@ -1,0 +1,22 @@
+<html>
+	<body>
+			<table>
+				
+				<tr>
+					<th>Order id</th>
+					<th>Details</th>
+					<th>Date</th>
+					<th>Time</th>
+				</tr>
+				{% for v in data %}
+				<tr>
+					<td>{{v.id}}</td>
+					<td>{{v.details}}</td>
+					<td>{{v.date}}</td>
+					<td>{{v.time}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</form>
+	</body>
+</html>

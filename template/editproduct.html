@@ -1,0 +1,108 @@
+<html>
+<script type="text/javascript">
+	function validation()
+	{
+		var num=/^[0-9]+$/;
+		var alphabet=/^[a-zA-Z]+$/;
+		var name=document.getElementById("name");
+		var price=document.getElementById("price");
+		var details=document.getElementById("details");
+		var stock=document.getElementById("stock");
+		var category=document.getElementById("category");
+		if(name.value.length==0)
+		{
+			alert("Enter product name")
+			name.focus();
+			return false;
+		}
+		
+		else if(price.value.length==0)
+		{
+			alert("Enter the price of the product");
+			price.focus();
+			return price;
+		}
+		else if(!price.value.match(num))
+		{
+			alert("Enter valid price");
+			price.focus();
+			return false;
+		}
+		else if(details.value.length==0)
+		{
+			alert("Enter details of the product");
+			details.focus();
+			return false;
+		}
+		else if(stock.value.length==0)
+		{
+			alert("Enter the stock");
+			stock.focus();
+			return false;
+		}
+		else if(!stock.value.match(num))
+		{
+			alert("Enter a valid stock number");
+			stock.focus();
+			return false;
+		}
+		else if(category.value.length==0)
+		{
+			alert("Enter the category");
+			category.focus();
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+}
+	</script>
+	<body>
+	<form method="post" action="{% url 'editAction' %}" enctype="multipart/form-data">
+	{% csrf_token %}
+		<table>
+			{% for v in data %}
+			<input type="hidden" name="productid" value="{{v.id}}">
+			<tr>
+				<td>Product name</td>
+				<td><input type="text" name="name" value="{{v.name}} " id="name"></td>
+			</tr>
+			<tr>
+				<td>Picture</td>
+				<td><img src="{{v.picture.url}}" height="100px" width="100px" alt="no pic" ></td>
+				       
+				
+				<td><input type="file" name="picture" id="picture"></td>
+				
+			</tr>
+			<tr>
+				<td>Price</td>
+				<td><input type="text" name="price" value="{{v.price}}" id="price"></td>
+			</tr>
+			<tr>
+				<td>Details</td>
+				<td><textarea name="details" value= rows="20" cols="10" id="details">{{v.details}}</textarea></td>
+			</tr>
+			<tr>
+				<td>Stock</td>
+				<td><input type="text" name="stock" value="{{v.stock}}" id="stock"></td>
+			</tr>
+			<tr>
+				<td>categoryid</td>
+				<td><select name="category" id="category">
+					<option value="{{v.categoryid.id}}">{{v.categoryid.category_name}}</option>
+					{% for c in categ %}
+					<option value="{{c.id}}">{{c.category_name}}</option>
+					{% endfor %}
+				</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td></td>
+				<td><input type="submit" value="editproduct" onclick="return validation()"></td>
+			</tr>
+		</table>
+	</form>
+	</body>
+</html>

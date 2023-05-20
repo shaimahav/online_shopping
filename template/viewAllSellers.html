@@ -1,0 +1,32 @@
+<html>
+	<body>
+		<table>
+			<tr>
+			 	<th>Name</th>	
+				<th>Gender</th>
+				<th>DOB</th>
+				<th>Address</th>
+				<th>Phone</th>
+				<th>Status</th>
+				<th>Username</th>
+				<th>Image</th>
+				<th>Country</th>
+			</tr>
+			{% for v in data%}
+			<tr>
+				<td>{{v.name}}</td>
+				<td>{{v.gender}}</td>
+				<td>{{v.dob}}</td>
+				<td>{{v.address}}</td>
+				<td>{{v.phone}}</td>
+				<td>{{v.status}}</td>
+				<td>{{v.username}}</td>
+				<td><img src="{{v.image.url}}" height="100px" width="100px" alt="nopic"></td>
+				<td>{{v.country}}</td>
+				<td><a href="{% url 'approve' v.id %}">approve</a></td>
+				<td><a href="{% url 'reject' v.id %}">reject</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>

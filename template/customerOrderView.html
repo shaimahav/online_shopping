@@ -1,0 +1,47 @@
+<html>
+
+	<body>
+
+		<table>
+			<tr>
+				<th>Buyer Name</th >
+				<th>Product Name</th >
+				<th>Picture</th >
+				<th>Quantity</th >
+				<th>Total Price</th >
+				<th>Shipping Address</th >
+				<th>Status</th>
+			</tr>
+			{% for v in data %}
+			<tr>
+				<td>{{v.buyer_id.name}}</td>
+				<td>{{v.productid.name}}</td>
+				<td><img src="{{v.productid.picture.url}}"  height="100px" width="100px" alt="nopic"></td>
+				<td>{{v.quantity}}</td>
+				<td>{{v.totalprice}}</td>
+				<td>{{v.shippingaddress}}</td>
+				<td>{{v.status}}</td>
+				{% if v.status == "cancelled" %}
+				<td><a href="{% url 'conformCancel' v.id %}">Conform cancellation</a></td>
+				{% endif %}
+				
+				{% if v.status == "pending"  %} 
+				<td id="accept"><a href="{% url 'accept' v.id%}">Accept</a></td>
+				<td id="reject"><a href="{% url 'reject1' v.id%}">Reject</a></td>
+				{% endif %}
+				{% if v.status == "accepted" %}
+				<td><a href="{% url 'trackOrder'  v.id %}">Add Tracking Order</a></td>	
+				{% endif %}
+				
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor%}
+{% endif %}
+</html>

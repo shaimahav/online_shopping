@@ -1,0 +1,33 @@
+<html>
+<script type="text/javascript">
+	function validation()
+	{
+		var word=document.getElementById("word");
+		if(word.value.length==0)
+		{
+			alert("Enter the word to be searched");
+			word.focus();
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+</script>
+	<body>
+		<form method="post" action="{% url 'searchProductAction' %}">
+		{% csrf_token %}
+			<table>
+				<tr>
+					<td>search</td>
+					<td><input type="text" name="word" id="word"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="search" onclick="return validation()"></td>
+				</tr>
+			</table>
+		</form>
+	</body>
+</html>

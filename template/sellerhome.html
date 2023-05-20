@@ -1,0 +1,32 @@
+<html>
+	<body>
+	{% for v in data %}
+		<h1>Welcome {{v.username}}</h1>
+	{% endfor %}
+	<ul>
+		<li>
+			<a href="{% url 'updateSeller' %}">Update seller</a>
+		</li>
+		<li>
+			<a href="{% url 'addProduct' %}">Add product</a>
+		</li>
+		<li>
+			<a href="{% url 'viewProduct' %}">View product</a>
+		</li>
+		<li>
+			<a href="{% url 'customerOrderView' %}">View Customer Order</a>
+		</li>
+		<li>
+			<a href="{% url 'logout' %}">Logout</a>
+		</li>
+		
+	</ul>
+	</body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert({{msg}}'')
+		</script>
+	{% endfor %}
+{% endif %}
+</html>
